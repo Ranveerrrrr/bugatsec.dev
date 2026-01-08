@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugatsec | Ranveer - Security Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Professional Security Theme */
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #0d1b0d;
+            --bg-card-alt: #0a1526;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-red: #e74c3c;
+            --accent-yellow: #f1c40f;
+            --accent-purple: #9b59b6;
+            --gradient-primary: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            --gradient-danger: linear-gradient(135deg, var(--accent-red), #ff7675);
+            --gradient-warning: linear-gradient(135deg, var(--accent-yellow), #fdcb6e);
+            --border-color: #1e2a1e;
+            --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.8);
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        /* === Navigation === */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-green);
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .logo-handle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        /* === Hero Section === */
+        .hero {
+            padding-top: 12rem;
+            padding-bottom: 4rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-tag {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--accent-green);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .hero-tag:hover {
+            background: rgba(46, 204, 113, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* === Terminal Window === */
+        .terminal-section {
+            margin: 3rem 0;
+        }
+        
+        .terminal-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mac-window {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: var(--shadow-deep);
+        }
+        
+        .mac-titlebar {
+            background: #2d2d2d;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .mac-buttons {
+            display: flex;
+            gap: 0.6rem;
+        }
+        
+        .mac-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .mac-close { background: #ff5f57; }
+        .mac-minimize { background: #ffbd2e; }
+        .mac-maximize { background: #28ca42; }
+        
+        .mac-title {
+            margin-left: 1rem;
+            color: #888;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .mac-body {
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .terminal-prompt {
+            color: var(--accent-green);
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        .terminal-command {
+            color: var(--accent-blue);
+        }
+        
+        .terminal-output {
+            color: #ccc;
+            margin-left: 2.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        /* === Companies I've Hacked === */
+        .companies-section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .company-card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .company-logo {
+            height: 50px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+        
+        .company-name {
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        /* === Featured Findings === */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .finding-card {
+            background: linear-gradient(145deg, #0d1b0d, #0a140a);
+            border-radius: 0;
+            padding: 2rem;
+            border: 1px solid #1e2a1e;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .finding-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: var(--shadow-deep);
+        }
+        
+        .finding-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border: 2px solid;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .badge-critical {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+        
+        .badge-high {
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+        
+        .badge-medium {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+        
+        .finding-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+        
+        .finding-company {
+            color: var(--accent-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .finding-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .finding-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .finding-tag {
+            padding: 0.5rem 1rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .finding-tag:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+        
+        /* === Skills Section === */
+        .skills-section {
+            background: linear-gradient(135deg, rgba(13, 27, 13, 0.8), rgba(10, 21, 38, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-category {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-green);
+        }
+        
+        .skill-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-list li::before {
+            content: '▸';
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+        }
+        
+        /* === Projects Section === */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: linear-gradient(145deg, #0a1526, #091422);
+            border-radius: 0;
+            padding: 2rem;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow-deep);
+        }
+        
+        .project-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            padding: 0.4rem 0.9rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--accent-green);
+        }
+        
+        /* === Contact Section === */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-card {
+            background: var(--bg-card);
+            border-radius: 0;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .contact-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-green);
+        }
+        
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+        
+        .contact-detail {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* === Footer === */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+        
+        .footer-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-tagline {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        
+        /* === Responsive Design === */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .companies-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+            
+            .skills-section {
+                padding: 2rem;
+            }
+            
+            .findings-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+        
+        /* === Animations === */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <img src="https://avatars.githubusercontent.com/u/167694892?s=400&u=c0540bcdc308a03823e83615abd821f830eab28b&v=4" alt="Ranveer" class="logo-img">
+                <div class="logo-text">
+                    <div class="logo-name">Ranveer Kohli</div>
+                    <div class="logo-handle">bugatsec</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#companies">Companies</a></li>
+                <li><a href="#findings">Findings</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title gradient-text">Security Researcher<br>& Bug Bounty Hunter</h1>
+                <p class="hero-subtitle">
+                    Finding critical vulnerabilities in enterprise systems. Specializing in web security, 
+                    authentication bypasses, and business logic flaws across major platforms.
+                </p>
+                
+                <div class="hero-tags">
+                    <span class="hero-tag mono">Account Takeover</span>
+                    <span class="hero-tag mono">Business Logic</span>
+                    <span class="hero-tag mono">XSS & CSRF</span>
+                    <span class="hero-tag mono">API Security</span>
+                    <span class="hero-tag mono">Burp Suite</span>
+                    <span class="hero-tag mono">Linux Terminal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Window -->
+    <section class="terminal-section">
+        <div class="container terminal-container">
+            <div class="mac-window fade-in">
+                <div class="mac-titlebar">
+                    <div class="mac-buttons">
+                        <div class="mac-button mac-close"></div>
+                        <div class="mac-button mac-minimize"></div>
+                        <div class="mac-button mac-maximize"></div>
+                    </div>
+                    <div class="mac-title">terminal — bugatsec@portfolio:~</div>
+                </div>
+                <div class="mac-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">whoami</span>
+                    </div>
+                    <div class="terminal-output">Ranveer "bugatsec" Kohli — Security Researcher</div>
+                    
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">tools --primary</span>
+                    </div>
+                    <div class="terminal-output">Burp Suite • Nmap • Gobuster • Sqlmap • ffuf • nuclei • custom scripts</div>
+                    
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">findings --stats</span>
+                    </div>
+                    <div class="terminal-output">14+ Valid Vulnerabilities • 3 Critical CVSS 9+ • 5 Platform Programs</div>
+                    
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command"><span class="blink">_</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies I've Hacked -->
+    <section id="companies" class="companies-section">
+        <div class="container">
+            <h2 class="section-title gradient-text">Companies I've Hacked</h2>
+            <div class="companies-grid">
+                <div class="company-card fade-in">
+                    <img src="https://assets.hackclub.com/flag-orpheus-left.svg" alt="Hack Club" class="company-logo">
+                    <div class="company-name">Hack Club</div>
+                </div>
+                
+                <div class="company-card fade-in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Mercedes_Benz_Logo_11.jpg" alt="Mercedes Benz" class="company-logo">
+                    <div class="company-name">Mercedes Benz</div>
+                </div>
+                
+                <div class="company-card fade-in">
+                    <img src="https://mma.prnewswire.com/media/1723202/3304226/ON_WHITE_Logo.jpg?p=distribution" alt="Porsche" class="company-logo">
+                    <div class="company-name">Porsche</div>
+                </div>
+                
+                <div class="company-card fade-in">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/032018/untitled-1_971.png?O2PD9bYrtq2WJ6YdiZerfxG76.YTAzVR&itok=GG_pxkOp" alt="Sporx" class="company-logo">
+                    <div class="company-name">Sporx</div>
+                </div>
+                
+                <div class="company-card fade-in">
+                    <div class="company-logo" style="color: var(--accent-green); font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fab fa-openai"></i>
+                    </div>
+                    <div class="company-name">OpenAI</div>
+                </div>
+                
+                <div class="company-card fade-in">
+                    <div class="company-logo" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <div class="company-name">Hilton</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Findings -->
+    <section id="findings">
+        <div class="container">
+            <h2 class="section-title gradient-text">Featured Findings</h2>
+            <div class="findings-grid">
+                <!-- Finding 1 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-critical">CRITICAL • CVSS 9.8</span>
+                    <h3 class="finding-title">Full Account Takeover Chain</h3>
+                    <div class="finding-company">Hilton Honors</div>
+                    <p class="finding-desc">
+                        Chained unverified email registration with OTP race condition to hijack any user account, 
+                        completely bypassing 2FA verification through logical flaw exploitation.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">Account Takeover</span>
+                        <span class="finding-tag">Race Condition</span>
+                        <span class="finding-tag">2FA Bypass</span>
+                        <span class="finding-tag">Authentication</span>
+                    </div>
+                </div>
+                
+                <!-- Finding 2 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-high">HIGH • P2</span>
+                    <h3 class="finding-title">Business Logic Bypass</h3>
+                    <div class="finding-company">OpenAI (Bugcrowd)</div>
+                    <p class="finding-desc">
+                        Discovered and exploited message editing functionality to bypass conversation limits 
+                        for free accounts, demonstrating fundamental business logic flaw in AI platform.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">Business Logic</span>
+                        <span class="finding-tag">Limit Bypass</span>
+                        <span class="finding-tag">API Security</span>
+                    </div>
+                </div>
+                
+                <!-- Finding 3 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-critical">CRITICAL</span>
+                    <h3 class="finding-title">Stored XSS to Account Control</h3>
+                    <div class="finding-company">Sporx (VDP)</div>
+                    <p class="finding-desc">
+                        Stored XSS in user profile fields (name, address) leading to cookie theft and 
+                        full account compromise on major sports social media platform.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">Stored XSS</span>
+                        <span class="finding-tag">Cookie Theft</span>
+                        <span class="finding-tag">Client-Side</span>
+                        <span class="finding-tag">DOM</span>
+                    </div>
+                </div>
+                
+                <!-- Finding 4 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-critical">CRITICAL • CVSS 9.1</span>
+                    <h3 class="finding-title">Production Config Leak</h3>
+                    <div class="finding-company">Playtika (Slotomania)</div>
+                    <p class="finding-desc">
+                        Custom dork discovery leading to exposure of 25+ API keys, Facebook App IDs, 
+                        and production credentials through misconfigured cloud storage.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">Information Disclosure</span>
+                        <span class="finding-tag">API Keys</span>
+                        <span class="finding-tag">Reconnaissance</span>
+                        <span class="finding-tag">Cloud</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="skills-section fade-in">
+                <h2 class="section-title gradient-text" style="margin-top: 0;">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="skill-title">Web Vulnerabilities</h3>
+                        <ul class="skill-list">
+                            <li>XSS (DOM/Stored/Reflected)</li>
+                            <li>SQL Injection & XXE</li>
+                            <li>CSRF & Clickjacking</li>
+                            <li>SSRF & Web Cache Poisoning</li>
+                            <li>OAuth & SSO Vulnerabilities</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="skill-title">Tools & Environments</h3>
+                        <ul class="skill-list">
+                            <li>Burp Suite Professional</li>
+                            <li>Linux & Terminal Mastery</li>
+                            <li>Custom Scripting (Python/Bash)</li>
+                            <li>Docker & Virtualization</li>
+                            <li>Network Analysis (Wireshark)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="skill-title">Methodology</h3>
+                        <ul class="skill-list">
+                            <li>Reconnaissance & Enumeration</li>
+                            <li>Authentication Testing</li>
+                            <li>Business Logic Analysis</li>
+                            <li>API Security Testing</li>
+                            <li>Bug Chaining & Exploitation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title gradient-text">Security Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <span class="project-badge">OPEN SOURCE</span>
+                    <h3 class="project-title">Dorking-Duck</h3>
+                    <p class="project-desc">
+                        Google Dorks generator with 150+ curated dorks for finding APIs, cloud exposures, 
+                        directory listings, admin panels, and sensitive files for bug bounty research.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OSINT</span>
+                        <span class="tech-tag">Reconnaissance</span>
+                        <span class="tech-tag">CLI</span>
+                    </div>
+                    <a href="https://github.com/Ranveerrrrr/Dorking-Duck" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card fade-in">
+                    <span class="project-badge">SECURITY TOOL</span>
+                    <h3 class="project-title">Ghostmark</h3>
+                    <p class="project-desc">
+                        Command-line image forensics toolkit for metadata extraction, steganography detection, 
+                        image hashing, and password protection detection.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Forensics</span>
+                        <span class="tech-tag">Image Analysis</span>
+                        <span class="tech-tag">CLI</span>
+                    </div>
+                    <a href="https://github.com/cracking-bytes/Ghostmark" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card fade-in">
+                    <span class="project-badge">EDUCATION</span>
+                    <h3 class="project-title">Raina</h3>
+                    <p class="project-desc">
+                        Cybersecurity awareness web toolkit featuring email breach checks, hash generators, 
+                        link analyzers, and phishing awareness tools for educational purposes.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">Security Education</span>
+                        <span class="tech-tag">Web</span>
+                    </div>
+                    <a href="https://github.com/Ranveerrrrr/Raina" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card fade-in">
+                    <span class="project-badge">LEARNING</span>
+                    <h3 class="project-title">Exploit-Diary</h3>
+                    <p class="project-desc">
+                        Collection of notes and Python scripts for web vulnerabilities including SQLi, XSS, 
+                        CSRF, and DOM-based attacks based on PortSwigger learning.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Security Notes</span>
+                        <span class="tech-tag">Learning</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                    <a href="https://github.com/Ranveerrrrr/Exploit-Diary" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title gradient-text">Get In Touch</h2>
+            <div class="contact-grid">
+                <a href="mailto:bugatsec@gmail.com" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-title">Email</h3>
+                    <p class="contact-detail">bugatsec@gmail.com</p>
+                </a>
+                
+                <a href="https://github.com/Ranveerrrrr" target="_blank" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <p class="contact-detail">@Ranveerrrrr</p>
+                </a>
+                
+                <a href="https://bugatsec.medium.com" target="_blank" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-medium"></i>
+                    </div>
+                    <h3 class="contact-title">Medium</h3>
+                    <p class="contact-detail">Security Write-ups</p>
+                </a>
+                
+                <a href="https://www.linkedin.com/in/ranveerkohli/" target="_blank" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="contact-title">LinkedIn</h3>
+                    <p class="contact-detail">Professional Profile</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo gradient-text">bugatsec</div>
+            <p class="footer-tagline">
+                Security Researcher & Bug Bounty Hunter focused on finding critical vulnerabilities 
+                in enterprise systems and web applications through responsible disclosure.
+            </p>
+            <p class="footer-copyright">
+                © 2024 Ranveer Kohli (bugatsec). All findings reported through responsible disclosure.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Blinking cursor effect
+        function blinkCursor() {
+            const cursor = document.querySelector('.blink');
+            if (cursor) {
+                setInterval(() => {
+                    cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+                }, 500);
+            }
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            blinkCursor();
+            // Add visible class to initial elements
+            document.querySelectorAll('.fade-in').forEach((el, index) => {
+                setTimeout(() => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('visible');
+                    }
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
