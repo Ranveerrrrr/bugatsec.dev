@@ -28,6 +28,7 @@ It is especially useful for:
 ---
 
 ## 📁 Repository Structure
+```
 bugatsec.dev/
 ├── index.html # Main portfolio homepage(V2)
 ├── index-old.html # Older version (V1)
@@ -36,7 +37,7 @@ bugatsec.dev/
 ├── robots.txt # Search engine rules
 ├── sitemap.xml # SEO sitemap
 ├── README.md # Project documentation
-
+```
 > 🔑 **index.html** is the most important file — this is where you customize your content.
 
 ---
