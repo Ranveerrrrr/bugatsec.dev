@@ -118,7 +118,7 @@ This demonstrates real-world impact.
 
 ---
 
-##📬 Contact & Social Links
+## 📬 Contact & Social Links
 Add your professional profiles:
 - GitHub
 - LinkedIn
@@ -145,7 +145,7 @@ https://yourusername.github.io/bugatsec.dev/
 
 ---
 
-##🎨 Customization Tips
+## 🎨 Customization Tips
 You can further customize by:
 - Editing colors, fonts, and layout (CSS)
 - Replacing images inside the assets/ folder
@@ -154,7 +154,7 @@ You can further customize by:
 
 ---
 
-##📌 What Makes a Strong Security Portfolio
+## 📌 What Makes a Strong Security Portfolio
 A good cybersecurity portfolio usually includes:
 - ✅ Clear skillset (what you test & hunt)
 - ✅ Real achievements (bounties, CVEs, writeups)
@@ -165,7 +165,7 @@ Quality always matters more than quantity.
 
 ---
 
-##⚠️ Security & Privacy Notes
+## ⚠️ Security & Privacy Notes
 - Do not expose private vulnerability reports
 - Avoid leaking credentials or sensitive data
 - Only share public or disclosed findings
@@ -173,11 +173,11 @@ Quality always matters more than quantity.
 
 ---
 
-##🏁 Final Words
+## 🏁 Final Words
 This repository is meant to be a starter template for security professionals.
 Fork it, customize it, make it yours, and keep it updated as your skills and achievements grow.
 A strong portfolio often speaks louder than a resume in cybersecurity. 🔐🚀
 
 ---
-#⭐ Feel free to star the repo if you found it useful
-#🤝 Contributions and improvements are welcome
+# ⭐ Feel free to star the repo if you found it useful
+# 🤝 Contributions and improvements are welcome
