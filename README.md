@@ -33,6 +33,7 @@ bugatsec.dev/
 ├── index.html # Main portfolio homepage(V2)
 ├── index-old.html # Older version (V1)
 ├── assets/ # Images, icons, media files
+├── favicon.png # Favicon
 ├── Ranveer-Kohli-CV.png # CV / resume image
 ├── robots.txt # Search engine rules
 ├── sitemap.xml # SEO sitemap
