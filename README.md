@@ -1,4 +1,7 @@
-# 📘 Documentation — Bugatsec.dev  
+# 📘 Documentation Bugatsec.dev  
+![License](https://img.shields.io/github/license/Ranveerrrrr/bugatsec.dev)
+
+
 ### Cybersecurity & Bug Bounty Portfolio Template
 
 This repository is a **personal cybersecurity portfolio website** designed for **security researchers, bug bounty hunters, and ethical hackers** who want a simple, professional online presence.
