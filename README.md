@@ -1,6 +1,6 @@
 # 📘 Documentation Bugatsec.dev  
 ![License](https://img.shields.io/github/license/Ranveerrrrr/bugatsec.dev)
-
+![Closed Issues](https://img.shields.io/github/issues-closed/Ranveerrrrr/bugatsec.dev)
 
 ### Cybersecurity & Bug Bounty Portfolio Template
 
