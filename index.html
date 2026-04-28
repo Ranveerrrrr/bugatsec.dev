@@ -739,11 +739,6 @@
             </div>
             
             <div class="company-card fade-in">
-                <img src="assets/Porsche1.png" alt="Porsche" class="company-logo">
-                <div class="company-name">Porsche</div>
-            </div>
-            
-            <div class="company-card fade-in">
                 <img src="assets/Sporx.png" alt="Sporx" class="company-logo">
                 <div class="company-name">Sporx</div>
             </div>
@@ -820,6 +815,42 @@
                         <span class="finding-tag">API Keys</span>
                         <span class="finding-tag">Reconnaissance</span>
                         <span class="finding-tag">Cloud</span>
+                    </div>
+                </div>
+
+                <!-- Finding 5 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-medium">MEDIUM • RESEARCH</span>
+                    <h3 class="finding-title">API Cache / Limit Behavior</h3>
+                    <div class="finding-company">Meesho</div>
+                    <p class="finding-desc">
+                        Identified a reviews API accepting unusually large limit values. Further testing
+                        showed cache-bypass behavior when varying request parameters, potentially increasing
+                        backend processing load despite caching protections.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">API Security</span>
+                        <span class="finding-tag">Cache Behavior</span>
+                        <span class="finding-tag">Input Validation</span>
+                        <span class="finding-tag">Performance Testing</span>
+                    </div>
+                </div>
+
+                <!-- Finding 6 -->
+                <div class="finding-card fade-in">
+                    <span class="finding-badge badge-high">HIGH • RESEARCH</span>
+                    <h3 class="finding-title">OTP Flow Validation Weakness</h3>
+                    <div class="finding-company">OYO</div>
+                    <p class="finding-desc">
+                        Observed weaknesses in OTP flow validation where client-controlled request parameters
+                        influenced OTP handling behavior. Additional testing showed inconsistent attempt-limit
+                        enforcement when modifying request headers during authentication flows.
+                    </p>
+                    <div class="finding-tags">
+                        <span class="finding-tag">Authentication</span>
+                        <span class="finding-tag">Business Logic</span>
+                        <span class="finding-tag">OTP Flow</span>
+                        <span class="finding-tag">Rate Limiting</span>
                     </div>
                 </div>
             </div>
@@ -955,6 +986,25 @@
                         <span class="tech-tag">Automation</span>
                     </div>
                     <a href="https://github.com/Ranveerrrrr/Exploit-Diary" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card fade-in">
+                    <span class="project-badge">SECURITY TOOL</span>
+                    <h3 class="project-title">Blind-XSSTrace</h3>
+                    <p class="project-desc">
+                        Blind XSS tracking utility for security testing workflows, helping capture and trace
+                        callback activity during authorized vulnerability research.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">XSS</span>
+                        <span class="tech-tag">Security Testing</span>
+                        <span class="tech-tag">Research</span>
+                        <span class="tech-tag">Open Source</span>
+                    </div>
+                    <a href="https://github.com/Ranveerrrrr/Blind-XSSTrace" target="_blank" class="project-link">
                         <i class="fab fa-github"></i> View on GitHub
                     </a>
                 </div>
